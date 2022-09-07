@@ -10,7 +10,6 @@ from sklearn.linear_model import LinearRegression
 from statsmodels.graphics.tsaplots import plot_predict
 
     
-
 file = pd.read_csv(r'file.csv')
 Close=np.array(file['Close Price'])
 #Close=np.array([22,23,21,31,23,42,45,34,57,58,62,55])
@@ -42,7 +41,39 @@ output=model_fit.forecast()
 y_p=output[0]
 
 print(y_p)
-  
+
+
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+from scipy import stats
+from statsmodels.tsa.arima.model import ARIMA
+import statsmodels.api as sm
+
+data = pd.read_csv('500820.csv')
+data = pd.DataFrame(data)
+data = data.apply(lambda x: pd.Series(x.dropna().values))
+data = data[['Year', 'Close Price']]
+
+data.index = pd.Index( data['Year'])
+del data['Year']
+print(data)
+
+fig = plt.figure(figsize=(12, 8))
+ax1 = fig.add_subplot(211)
+fig = sm.graphics.tsa.plot_acf(data.values.squeeze(), lags=8, ax=ax1)
+ax2 = fig.add_subplot(212)
+fig = sm.graphics.tsa.plot_pacf(data, method='ywm', lags=8, ax=ax2)
+fig.savefig('plot.png')
+
+arma = ARIMA(data, order=(1, 0, 1)).fit()
+print(arma.params)
+
+arima = ARIMA(data, order=(2, 1, 2)).fit()
+print(arima.params)
+print(f"ARIMA Prediction for 2023 stock is {arima.predict(2023)}")
+
+
 #CALCULATE TREND
 def cal_trend(x, y):
   a = sum(y)/len(y)
