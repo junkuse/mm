@@ -95,7 +95,7 @@ if(q==1):
 else:
      ma_p=Multiplereg(ma,yet,q)
 
-        
+#########################################################
 #CALCULATE TREND
 def cal_trend(x, y):
   a = sum(y)/len(y)
