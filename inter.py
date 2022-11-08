@@ -1,35 +1,3 @@
-# CUBIC SPLINE
-
-from scipy.interpolate import CubicSpline
-import matplotlib.pyplot as plt
-import math as m
-import operator as op
-from functools import reduce
-import scipy.stats as stats
-from statistics import mean
-
-t = [0, 8, 16, 24, 32, 40]
-o = [14.621, 11.843, 9.870, 8.418, 7.305, 6.413]
-
-cs = CubicSpline(t, o, bc_type = "natural")
-
-new_t = [4, 36]
-pred_o = []
-
-for i in new_t:
-  pred_o.append(cs(i))
-
-pred_o
-
-plt.figure(figsize = (10,8))
-plt.plot(new_t, pred_o, 'ro')
-plt.plot(t, o, 'green', marker = "o")
-plt.title('Cubic Spline Interpolation')
-plt.xlabel('x')
-plt.ylabel('y')
-plt.show()
-
-
 #BACKWARD
 def u_cal(u, n):
     temp = u
@@ -116,6 +84,38 @@ for i in range(1,n):
 
 print("\nValue at", value,
     "is", round(sum, 6));
+
+# CUBIC SPLINE
+
+from scipy.interpolate import CubicSpline
+import matplotlib.pyplot as plt
+import math as m
+import operator as op
+from functools import reduce
+import scipy.stats as stats
+from statistics import mean
+
+t = [0, 8, 16, 24, 32, 40]
+o = [14.621, 11.843, 9.870, 8.418, 7.305, 6.413]
+
+cs = CubicSpline(t, o, bc_type = "natural")
+
+new_t = [4, 36]
+pred_o = []
+
+for i in new_t:
+  pred_o.append(cs(i))
+
+pred_o
+
+plt.figure(figsize = (10,8))
+plt.plot(new_t, pred_o, 'ro')
+plt.plot(t, o, 'green', marker = "o")
+plt.title('Cubic Spline Interpolation')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.show()
+
 
 #CENTRAL
 
